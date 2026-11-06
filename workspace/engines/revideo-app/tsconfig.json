@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+    "jsxImportSource": "@revideo/2d/lib",
+    "strict": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "paths": { "@revideo/2d/lib/jsx-runtime": ["./node_modules/@revideo/2d/lib/jsx-runtime"] }
+  },
+  "include": ["src"]
+}

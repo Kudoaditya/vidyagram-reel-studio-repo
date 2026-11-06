@@ -1,0 +1,18 @@
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#0b0b0c}
+:root{--bg:#0b0b0c;--panel:#151517;--panel2:#1c1c1f;--line:rgba(255,255,255,.10);--txt:#f4f3ef;--mut:#8b8b92;--dim:#5a5a60;--acc:#E8C48A;--acc2:#7FB6B0}
+#root{position:relative;width:1920px;height:1080px;overflow:hidden;color:var(--txt);
+ background:radial-gradient(120% 120% at 20% 10%,#17171a 0%,#0b0b0c 55%,#060607 100%);
+ font-family:'SF Pro Text','Helvetica Neue','Inter',Arial,sans-serif}
+/* SAFE AREA: the speaker pill docks at right (x 1484-1864) so all content lives in the 1340px stage */
+#stage{position:absolute;left:110px;top:96px;width:1340px;height:888px}
+.serif{font-family:'Iowan Old Style','Charter','Georgia','Times New Roman',serif;font-weight:400;letter-spacing:-.01em}
+.mono{font-family:'SF Mono','Menlo','Courier New',monospace}
+.kick{font-size:22px;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);display:flex;align-items:center;gap:14px}
+.kick:before{content:"";width:34px;height:2px;background:var(--acc)}
+.h{font-size:64px;line-height:1.08;margin-top:22px}
+.sub{font-size:30px;color:var(--mut);margin-top:16px;line-height:1.4}
+.acc{color:var(--acc)}.acc2{color:var(--acc2)}.mut{color:var(--mut)}
+.card{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:22px;box-shadow:0 24px 60px rgba(0,0,0,.5)}
+.row{display:flex}.col{display:flex;flex-direction:column}.abs{position:absolute}
+.ov{overflow:hidden;display:block}.ov>span{display:block}

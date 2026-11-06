@@ -1,0 +1,23 @@
+#!/bin/sh
+# Entry point for the 9:16 video pipeline. Usage: ./vp help   (macOS, Linux and Windows Git Bash)
+# Sets up PATH itself (no need to `source env.sh`) and works from any folder, even paths with spaces.
+ROOT="$(cd "$(dirname "$0")" && pwd)"
+case "$(uname -s 2>/dev/null)" in
+  MINGW*|MSYS*|CYGWIN*) WIN=1; VBIN="$ROOT/.venv/Scripts"; VPY="$VBIN/python.exe" ;;
+  *)                    WIN=0; VBIN="$ROOT/.venv/bin";     VPY="$VBIN/python" ;;
+esac
+export PATH="$ROOT/bin:$VBIN:$HOME/.local/bin:$PATH"
+export PYTHONUNBUFFERED=1 PYTHONUTF8=1 PYTHONIOENCODING=utf-8 HYPERFRAMES_NO_TELEMETRY=1 DISABLE_TELEMETRY=1 HF_HUB_DISABLE_TELEMETRY=1
+# python used to start vp.py: the workspace venv when it exists; otherwise python3 (Mac) or uv's Python (Windows)
+run_py() {
+  if [ -x "$VPY" ]; then "$VPY" "$@"
+  elif [ "$WIN" = 1 ]; then uv run --no-project --python 3.12 python "$@"
+  else python3 "$@"; fi
+}
+case "$1" in ""|help|-h|--help) run_py "$ROOT/scripts/vp.py" --help; exit $? ;; esac
+# Self-heal: if the Python env is missing or broken (e.g. after moving the folder), repair it first.
+if [ "$1" != "setup" ] && ! "$VPY" -c "import faster_whisper" >/dev/null 2>&1; then
+  echo "vp: Python environment missing or broken — running setup first..."
+  run_py "$ROOT/scripts/vp.py" setup || exit 1
+fi
+run_py "$ROOT/scripts/vp.py" "$@"

@@ -1,0 +1,32 @@
+{
+  "name": "remotion-app",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "remotion studio",
+    "compositions": "remotion compositions",
+    "render": "remotion render",
+    "render:30": "remotion render Reel30 ../../output_renders/remotion-reel30.mp4",
+    "render:60": "remotion render Reel60 ../../output_renders/remotion-reel60.mp4",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@remotion/captions": "4.0.535",
+    "@remotion/cli": "4.0.535",
+    "@remotion/media-utils": "4.0.535",
+    "@remotion/player": "4.0.535",
+    "@remotion/tailwind-v4": "4.0.535",
+    "@remotion/transitions": "4.0.535",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "remotion": "4.0.535",
+    "zod": "4.5.4"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^5.9.3"
+  }
+}

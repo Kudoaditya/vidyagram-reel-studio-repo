@@ -1,0 +1,15 @@
+* text=auto
+*.sh text eol=lf
+*.py text eol=lf
+*.mjs text eol=lf
+*.json text eol=lf
+vp text eol=lf
+workspace/vp text eol=lf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+*.ogg binary
+*.png binary
+*.jpg binary
+*.mp4 binary
+*.pdf binary

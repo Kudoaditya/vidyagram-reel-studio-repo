@@ -1,0 +1,89 @@
+<!doctype html><html><head><meta charset="UTF-8"/><meta name="viewport" content="width=1080, height=1920"/>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>html,body{width:1080px;height:1920px}#root{width:1080px;height:1920px}
+@font-face{font-family:'Helvetica Neue';src:local('Helvetica Neue')}
+*{margin:0;padding:0;box-sizing:border-box}html,body{overflow:hidden}
+#root{position:relative;overflow:hidden;background:radial-gradient(ellipse at 50% 38%,#FFF6E8 0%,#F3E7D2 58%,#E8D8BC 100%);font-family:'Helvetica Neue',Helvetica,Arial,sans-serif}
+#st{position:absolute;left:0;top:0}
+</style></head><body>
+<div id="root" data-composition-id="main" data-start="0" data-width="1080" data-height="1920" data-duration="10.5">
+<div id="all" class="clip" data-start="0" data-duration="10.5" data-track-index="0" style="position:absolute;inset:0">
+<svg id="st" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+</div></div>
+<script>
+// ================= Stickman rig (SVG + GSAP) =================
+const CFG=Object.assign({line:"#1F2033",headFill:"#fff",beanie:true,ground:"#EEDDBF",groundLine:"#1F2033",bg:null,text:"#1F2033"},window.CFG||{});
+const NS="http://www.w3.org/2000/svg",INK=CFG.line,TA="#FF6A1F",TE="#0FA3A3",VI="#7A5CFA",SU="#FFC233";
+const svg=document.getElementById("st");const O=document.getElementById("all");
+const el=(p,t,a={})=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);p.appendChild(e);return e};
+const grp=(p,x=0,y=0)=>{const g=el(p,"g");gsap.set(g,{x,y,transformOrigin:"0 0"});return g};
+const seg=(p,len,w=12)=>el(p,"line",{x1:0,y1:0,x2:0,y2:len,stroke:INK,"stroke-width":w,"stroke-linecap":"round"});
+// stage: ground band + shadow
+if(CFG.bg)document.getElementById("root").style.background=CFG.bg;
+const ground=el(svg,"rect",{x:0,y:1240,width:1080,height:700,fill:CFG.ground});el(svg,"rect",{x:0,y:1236,width:1080,height:8,fill:CFG.groundLine,opacity:.25});
+const shadow=el(svg,"ellipse",{cx:540,cy:1246,rx:150,ry:20,fill:"#000",opacity:.14});
+const world=el(svg,"g");
+function stick(x,y,s=1){
+ const root=grp(world,x,y);gsap.set(root,{scale:s});
+ const J={};
+ J.LT=grp(root,-16,0);seg(J.LT,115);J.LS=grp(J.LT,0,115);seg(J.LS,115);el(J.LS,"line",{x1:0,y1:115,x2:-26,y2:115,stroke:INK,"stroke-width":12,"stroke-linecap":"round"});
+ J.RT=grp(root,16,0);seg(J.RT,115);J.RS=grp(J.RT,0,115);seg(J.RS,115);el(J.RS,"line",{x1:0,y1:115,x2:26,y2:115,stroke:INK,"stroke-width":12,"stroke-linecap":"round"});
+ J.torso=grp(root,0,0);el(J.torso,"line",{x1:0,y1:0,x2:0,y2:-190,stroke:INK,"stroke-width":13,"stroke-linecap":"round"});
+ J.LA=grp(J.torso,-4,-170);seg(J.LA,98);J.LF=grp(J.LA,0,98);seg(J.LF,92);el(J.LF,"circle",{cx:0,cy:96,r:9,fill:INK});
+ J.RA=grp(J.torso,4,-170);seg(J.RA,98);J.RF=grp(J.RA,0,98);seg(J.RF,92);el(J.RF,"circle",{cx:0,cy:96,r:9,fill:INK});
+ J.head=grp(J.torso,0,-190);
+ el(J.head,"circle",{cx:0,cy:-56,r:56,fill:CFG.headFill,stroke:INK,"stroke-width":11});
+ if(CFG.beanie){el(J.head,"path",{d:"M-55 -66 A56 56 0 0 1 55 -66 Q0 -78 -55 -66Z",fill:TA,stroke:INK,"stroke-width":9,"stroke-linejoin":"round"});el(J.head,"circle",{cx:0,cy:-118,r:13,fill:TA,stroke:INK,"stroke-width":7});}
+ J.eyes=grp(J.head,0,0);el(J.eyes,"circle",{cx:-19,cy:-46,r:6.5,fill:INK});el(J.eyes,"circle",{cx:19,cy:-46,r:6.5,fill:INK});
+ J.m_smile=el(J.head,"path",{d:"M-20 -26 Q0 -8 20 -26",fill:"none",stroke:INK,"stroke-width":7,"stroke-linecap":"round"});
+ J.m_open=el(J.head,"ellipse",{cx:0,cy:-22,rx:15,ry:12,fill:INK,opacity:0});
+ J.m_flat=el(J.head,"path",{d:"M-14 -22H14",fill:"none",stroke:INK,"stroke-width":7,"stroke-linecap":"round",opacity:0});
+ J.root=root;return J}
+const POSE={rest:{LA:7,LF:5,RA:-7,RF:-5,LT:0,LS:0,RT:0,RS:0,torso:0,head:0},
+ wave:{LA:7,LF:5,RA:-150,RF:-12,LT:0,LS:0,RT:0,RS:0,torso:-2,head:-6},
+ think:{LA:7,LF:5,RA:-24,RF:-140,LT:0,LS:0,RT:0,RS:0,torso:2,head:9},
+ point:{LA:7,LF:5,RA:-96,RF:-4,LT:0,LS:0,RT:0,RS:0,torso:-3,head:7},
+ cheer:{LA:168,LF:12,RA:-168,RF:-12,LT:6,LS:10,RT:-6,RS:-10,torso:0,head:0}};
+function pose(tl,J,name,t,d=.35,ease="power2.out"){const P=POSE[name];Object.keys(P).forEach(k=>tl.to(J[k],{rotation:P[k],duration:d,ease},t))}
+function mouth(tl,J,kind,t){["smile","open","flat"].forEach(k=>tl.set(J["m_"+k],{opacity:k==kind?1:0},t))}
+function walk(tl,J,t0,dur,x0,x1,steps){const o={p:0};tl.fromTo(J.root,{x:x0},{x:x1,duration:dur,ease:"none",immediateRender:false},t0);tl.fromTo(o,{p:0},{p:1,duration:dur,ease:"none",immediateRender:false,onUpdate(){const a=o.p*steps*Math.PI*2,A=30*Math.min(1,o.p*8,(1-o.p)*8+.2);
+  gsap.set(J.RT,{rotation:-A*Math.sin(a)});gsap.set(J.LT,{rotation:A*Math.sin(a)});gsap.set(J.RS,{rotation:Math.max(0,Math.cos(a))*38});gsap.set(J.LS,{rotation:Math.max(0,-Math.cos(a))*38});
+  gsap.set(J.LA,{rotation:7+26*Math.sin(a)});gsap.set(J.RA,{rotation:-7+26*Math.sin(a)});gsap.set(J.LF,{rotation:-18});gsap.set(J.RF,{rotation:-18});gsap.set(J.torso,{rotation:-2});gsap.set(J.root,{y:J.baseY-Math.abs(Math.sin(a))*9})}},t0)}
+// props
+function bulb(x,y){const g=el(world,"g");gsap.set(g,{x,y,transformOrigin:"0 0",scale:0,opacity:0});
+ el(g,"path",{d:"M0 -54 C-40 -54 -58 -22 -58 4 C-58 28 -36 40 -30 62 H30 C36 40 58 28 58 4 C58 -22 40 -54 0 -54Z",fill:SU,stroke:INK,"stroke-width":9,"stroke-linejoin":"round"});el(g,"rect",{x:-24,y:62,width:48,height:16,rx:6,fill:"#fff",stroke:INK,"stroke-width":8});el(g,"rect",{x:-16,y:78,width:32,height:12,rx:6,fill:INK});
+ const rays=el(g,"g");for(let i=0;i<7;i++){const a=(-160+i*22)*Math.PI/180;el(rays,"line",{x1:Math.cos(a)*84,y1:Math.sin(a)*84,x2:Math.cos(a)*112,y2:Math.sin(a)*112,stroke:INK,"stroke-width":9,"stroke-linecap":"round"})}return g}
+function qmark(x,y,c=INK){const t=el(world,"text",{x:0,y:0,"font-size":120,"font-weight":900,"text-anchor":"middle",fill:c,"font-family":"Helvetica Neue,Arial"});t.textContent="?";gsap.set(t,{x,y,scale:0,opacity:0,transformOrigin:"0 0"});return t}
+const O2=document.createElement("div");// html overlay helpers (titles/captions) share style with 3D Studio
+function title(id,html,top,t0,t1,size=118){const d=document.createElement("div");d.style.cssText=`position:absolute;left:0;top:${top}px;width:1080px;height:${Math.round(size*1.3)}px;overflow:hidden;display:flex;justify-content:center;align-items:center`;d.innerHTML=`<div style="font-weight:900;font-size:${size}px;letter-spacing:-.025em;color:${CFG.text};white-space:nowrap;line-height:1.1">${html}</div>`;O.appendChild(d);const ti=d.firstChild;tl.fromTo(ti,{yPercent:125},{yPercent:0,duration:.6,ease:"power4.out",immediateRender:true},t0);tl.to(ti,{yPercent:-125,duration:.4,ease:"power3.in"},t1)}
+const CAPS=__CAPS__;
+function captions(){const cont=document.createElement("div");cont.style.cssText="position:absolute;left:0;top:1370px;width:1080px;height:96px;display:flex;justify-content:center;align-items:center;pointer-events:none";O.appendChild(cont);
+ CAPS.forEach(c=>{const e=document.createElement("div");e.style.cssText="position:absolute;opacity:0;background:rgba(31,32,51,.9);color:#fff;font-weight:800;font-size:44px;padding:16px 34px;border-radius:44px;white-space:nowrap;max-width:960px";e.innerHTML=c.words.map(w=>`<span style="color:#fff">${w.w}</span>`).join(" ");cont.appendChild(e);const sp=[...e.children];
+  tl.fromTo(e,{opacity:0,y:14,scale:.96},{opacity:1,y:0,scale:1,duration:.18,ease:"power2.out",immediateRender:true},c.t0);tl.set(e,{opacity:0},c.t1);
+  c.words.forEach((w,i)=>{tl.set(sp[i],{color:"#FF9A57"},w.t);if(i<c.words.length-1)tl.set(sp[i],{color:"#fff"},c.words[i+1].t)})})}
+const tl=gsap.timeline({paused:true});
+// ============ SAMPLE SCENES (replace with your story) ============
+const S=stick(-260,940,1.3);S.baseY=940;
+Object.entries(POSE.rest).forEach(([k,v])=>gsap.set(S[k],{rotation:v}));
+const bl=bulb(790,650),q1=qmark(740,640),q2=qmark(850,570,TA);
+// 0-2.4 walks in, 2.4-3.6 waves
+walk(tl,S,.2,2.2,-260,500,3);pose(tl,S,"rest",2.4,.25);
+const sh={x:0};tl.fromTo(shadow,{attr:{cx:-260}},{attr:{cx:500},duration:2.2,ease:"none",immediateRender:false},.2);
+pose(tl,S,"wave",2.5,.3);for(let i=0;i<5;i++)tl.to(S.RF,{rotation:i%2?-12:-48,duration:.18,ease:"sine.inOut"},2.9+i*.18);mouth(tl,S,"open",2.6);mouth(tl,S,"smile",3.6);
+title("t1",`HELLO<span style="color:${TA}">.</span>`,200,2.6,4.3);
+// 4.2-6.4 thinks, ? bubbles, then idea bulb
+pose(tl,S,"think",4.4,.4);mouth(tl,S,"flat",4.4);tl.to(S.head,{rotation:11,duration:.4,yoyo:true,repeat:1},4.8);
+[q1,q2].forEach((q,i)=>{tl.fromTo(q,{scale:0,opacity:0},{scale:1,opacity:1,duration:.4,ease:"back.out(2)"},4.6+i*.25);tl.to(q,{y:"-=24",duration:.4,yoyo:true,repeat:3,ease:"sine.inOut"},5.1);tl.to(q,{opacity:0,scale:0,duration:.2},6.2)});
+tl.fromTo(bl,{scale:0,opacity:0},{scale:1,opacity:1,duration:.5,ease:"back.out(2.4)"},6.3);mouth(tl,S,"open",6.3);
+tl.to(S.root,{y:S.baseY-60,duration:.22,ease:"power2.out"},6.35).to(S.root,{y:S.baseY,duration:.22,ease:"power2.in"},6.57);
+title("t2",`IDEA<span style="color:${TA}">!</span>`,200,6.4,8.1);
+// 7.6-9.6 cheer jump
+tl.to(bl,{opacity:0,scale:0,duration:.25},8.0);
+pose(tl,S,"cheer",8.2,.25);mouth(tl,S,"open",8.2);
+tl.to(S.root,{y:S.baseY-170,duration:.35,ease:"power2.out"},8.3).to(S.root,{y:S.baseY,duration:.35,ease:"bounce.out"},8.65);tl.to(shadow,{attr:{rx:90},duration:.35,yoyo:true,repeat:1},8.3);
+for(let i=0;i<14;i++){const a=i/14*Math.PI*2;const c=el(world,"rect",{x:-8,y:-8,width:16,height:16,rx:4,fill:[TA,TE,VI,SU][i%4]});gsap.set(c,{x:500,y:650,opacity:0});tl.fromTo(c,{x:500,y:640,opacity:1,rotation:0},{x:500+Math.cos(a)*300,y:640+Math.sin(a)*260-60,opacity:0,rotation:200,duration:.9,ease:"power2.out",immediateRender:false},8.35)}
+title("t3",`AMAZING<span style="color:${TA}">.</span>`,200,8.3,10.3);
+tl.fromTo(O,{opacity:1},{opacity:1,duration:.1},0);
+captions();
+window.__timelines=window.__timelines||{};window.__timelines["main"]=tl;tl.seek(0);
+</script></body></html>

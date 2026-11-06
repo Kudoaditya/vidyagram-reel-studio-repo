@@ -1,0 +1,17 @@
+{"accent":"#E8C48A","scenes":[
+{"id":"t1","type":"title","dur":4,"kick":"Chapter 1","lines":["Prompting is","over"],"sub":"The new skill is managing AI"},
+{"id":"t2","type":"quote","dur":6,"text":"Treat Claude like a brilliant but new employee","hl":["brilliant"],"by":"Anthropic","role":"Docs"},
+{"id":"t3","type":"stat","dur":5,"kick":"Daily spend","label":"In one month","value":50000,"prefix":"$","caption":"From a single AI agent"},
+{"id":"t4","type":"steps","dur":8,"kick":"Framework","title":"SMART goals","items":[{"t":"Specific","d":"Clear target"},{"t":"Measurable","d":"Add a number"},{"t":"Attainable","d":"Achievable"},{"t":"Relevant","d":"Worth doing"},{"t":"Time-bound","d":"Deadline"}]},
+{"id":"t5","type":"compare","dur":7,"kick":"Shift","title":"Before vs After","left":{"h":"Prompting","items":["Write the perfect prompt","Rewrite again and again","Chat back and forth"]},"right":{"h":"Managing","items":["Give a goal","Give context","Verify the result"]},"verdict":"The skill is now management"},
+{"id":"t6","type":"bars","dur":6,"kick":"Cost","title":"Cost per task","unit":"%","items":[{"l":"Haiku","v":20},{"l":"Sonnet","v":55},{"l":"Opus","v":100}]},
+{"id":"t7","type":"line","dur":6,"kick":"Growth","title":"Tokens keep growing","points":[2,4,5,9,14,22],"labels":["D1","D2","D3","D4","D5","D6"],"endLabel":"22x"},
+{"id":"t8","type":"flow","dur":7,"kick":"Process","title":"From idea to done","nodes":[{"t":"Goal","s":"what you want"},{"t":"Context","s":"knowledge base"},{"t":"Agent","s":"does the work"},{"t":"Verify","s":"check it"}]},
+{"id":"t9","type":"checklist","dur":6,"kick":"Rules","title":"A good goal","items":["One clear target","Measurable in numbers","With a deadline"]},
+{"id":"t10","type":"calc","dur":6,"kick":"Math","title":"Extrapolate one day","inputs":[{"l":"Daily spend","show":"$2,500","pct":60},{"l":"Working days","show":"20","pct":70}],"result":{"l":"One month","value":50000,"prefix":"$"}},
+{"id":"t11","type":"code","dur":7,"kick":"Prompt","file":"agent.md","lines":["You are a sales agent.","Goal: 10 leads/day.","Output: table only."]},
+{"id":"t12","type":"chat","dur":6,"kick":"Slack","items":[{"who":"me","text":"Make yesterday's report"},{"who":"ai","text":"Done. Added 3 insights."}]},
+{"id":"t13","type":"tree","dur":6,"kick":"Team","title":"Product team","root":"Head of product","children":["Design","Engineering","Ops"],"grand":[["UX","Brand"],["Web","API"],["Support"]]},
+{"id":"t14","type":"pricing","dur":6,"kick":"Models","title":"Which model","tiers":[{"n":"Haiku","price":"$0.10","unit":"per million","note":"Simple tasks"},{"n":"Sonnet","price":"$2","unit":"per million","note":"Everyday work","hot":true},{"n":"Opus","price":"$4","unit":"per million","note":"Big work"}]},
+{"id":"t15","type":"scale","dur":6,"kick":"ROI","title":"Worth it?","left":{"l":"Cost","v":"$477"},"right":{"l":"Value","v":"$1,300"}}
+]}

@@ -1,0 +1,17 @@
+{
+  "name": "hyperframes-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npx --yes hyperframes@0.8.161 preview",
+    "check": "npx --yes hyperframes@0.8.161 check",
+    "render": "npx --yes hyperframes@0.8.161 render",
+    "publish": "npx --yes hyperframes@0.8.161 publish"
+  },
+  "dependencies": {
+    "gsap": "^3.15.0",
+    "hyperframes": "^0.8.161",
+    "lottie-web": "^5.13.0",
+    "three": "^0.186.1"
+  }
+}
