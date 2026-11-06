@@ -1,4 +1,4 @@
 Mujhe VidyaGram ki "Reel Studio" skill apne computer par install karni hai.
-GitHub repo: https://github.com/YOUR-USERNAME/vidyagram-reel-studio
+GitHub repo: https://github.com/Kudoaditya/vidyagram-reel-studio-repo
 
 Is repo ko clone karo (home folder me), phir uske andar INSTALL-FOR-CLAUDE.md padho aur uske saare steps khud follow karo. Mera computer Windows ho ya Mac, jo steps mere OS ke liye likhe hain wahi lo. Jo kuch install karna ho (Node, ffmpeg, Python, Whisper, etc.) sab tum khud karo. Sirf jahan mujhe kuch karna ho (password, "Yes" popup) wahan mujhe simple Hinglish me batao. Kaam ke baad health check chalao aur batao ki reel banane ke liye ab kya karna hai.
